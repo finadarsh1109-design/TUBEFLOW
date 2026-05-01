@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniStream | AI YouTube Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #050505; color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+        .slide-section { height: 100vh; width: 100vw; transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1); position: absolute; }
+        .hidden-slide { transform: translateY(100%); }
+        .active-slide { transform: translateY(0); }
+        .gradient-text { background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .three-d-orb { 
+            width: 400px; height: 400px; background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, rgba(0,0,0,0) 70%); 
+            border-radius: 50%; filter: blur(40px); animation: float 6s infinite ease-in-out;
+        }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20px, -30px) scale(1.1); } }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Surface Page -->
+    <section id="surface" class="slide-section active-slide flex flex-col items-center justify-center text-center p-6">
+        <div class="three-d-orb absolute z-0"></div>
+        <div class="relative z-10 w-full max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">WHAT CAN I DO FOR YOU?</h1>
+            <div class="relative">
+                <input type="text" id="userPrompt" placeholder="Describe your video (e.g. 'Space Documentary' or 'Gaming Shorts')..." 
+                       class="w-full bg-white/5 border border-white/20 rounded-full py-5 px-10 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-md transition-all shadow-2xl">
+                <button onclick="goToDemo()" class="absolute right-4 top-3 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-full font-bold transition-all">Generate</button>
+            </div>
+            <div class="mt-6 flex gap-4 justify-center text-sm text-gray-400">
+                <span class="hover:text-blue-400 cursor-pointer">#TrueCrime</span>
+                <span class="hover:text-blue-400 cursor-pointer">#Top10List</span>
+                <span class="hover:text-blue-400 cursor-pointer">#FinanceAI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Demo Page -->
+    <section id="demo" class="slide-section hidden-slide flex flex-col items-center justify-center bg-zinc-900 p-6">
+        <div class="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
+            <div class="text-left">
+                <h2 class="text-3xl font-bold mb-4">Your AI Preview is Ready</h2>
+                <p class="text-gray-400 mb-6">We've applied our <span class="text-blue-400">Cinematic Template</span> based on your prompt. Speed up your workflow with one-click edits.</p>
+                <div class="space-y-4">
+                    <div class="bg-black/40 p-4 rounded-lg border border-white/10">
+                        <p class="text-xs text-blue-400 uppercase font-bold">Script Outline</p>
+                        <p class="text-sm italic">"In the depths of the ocean, secrets await..."</p>
+                    </div>
+                    <button onclick="goToSales()" class="w-full py-4 bg-white text-black font-black rounded-lg hover:bg-gray-200 transition-all">GET FULL VIDEO WITHOUT WATERMARK</button>
+                </div>
+            </div>
+            <div class="relative aspect-video bg-black rounded-2xl border-4 border-white/5 shadow-2xl overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent"></div>
+                <i class="fa-solid fa-play text-6xl opacity-50"></i>
+                <div class="absolute bottom-4 left-4 bg-black/60 px-3 py-1 rounded text-xs">DEMO PREVIEW MODEL v3.1</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Sales & Comparison -->
+    <section id="sales" class="slide-section hidden-slide flex flex-col items-center justify-center bg-black p-6">
+        <h2 class="text-4xl font-bold mb-12">Fair Market Pricing</h2>
+        <div class="max-w-5xl w-full grid md:grid-cols-2 gap-8">
+            <!-- Market Price -->
+            <div class="p-8 border border-white/10 rounded-3xl bg-zinc-950 opacity-60 scale-95 transition-all">
+                <h3 class="text-xl font-bold mb-4">Traditional Outsourcing</h3>
+                <ul class="space-y-3 mb-8 text-sm">
+                    <li class="flex justify-between"><span>Scriptwriter</span> <span>$50</span></li>
+                    <li class="flex justify-between"><span>Voice Actor</span> <span>$40</span></li>
+                    <li class="flex justify-between"><span>Video Editor</span> <span>$120</span></li>
+                </ul>
+                <div class="text-3xl font-bold text-red-500 underline underline-offset-8">$210 / Video</div>
+            </div>
+            <!-- Our Price -->
+            <div class="p-8 border-2 border-blue-500 rounded-3xl bg-blue-950/20 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
+                <div class="bg-blue-600 text-white text-xs inline-block px-3 py-1 rounded-full mb-4 font-bold">FASTER WORKFLOW</div>
+                <h3 class="text-xl font-bold mb-4 text-blue-400">OmniStream AI</h3>
+                <ul class="space-y-3 mb-8 text-sm">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> All-in-One Automation</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Premium Niche Templates</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> 10min Generation Time</li>
+                </ul>
+                <div class="text-5xl font-bold mb-6">$1.99 <span class="text-sm text-gray-400">/ video</span></div>
+                <button class="w-full py-4 bg-blue-500 text-white font-black rounded-xl hover:bg-blue-400 shadow-lg">START GENERATING NOW</button>
+            </div>
+        </div>
+        <button onclick="location.reload()" class="mt-12 text-gray-500 hover:text-white transition-all">← Back to Start</button>
+    </section>
+
+    <script>
+        function goToDemo() {
+            document.getElementById('surface').classList.add('hidden-slide');
+            document.getElementById('surface').classList.remove('active-slide');
+            document.getElementById('demo').classList.remove('hidden-slide');
+            document.getElementById('demo').classList.add('active-slide');
+        }
+
+        function goToSales() {
+            document.getElementById('demo').style.transform = 'translateY(-100%)';
+            document.getElementById('sales').classList.remove('hidden-slide');
+            document.getElementById('sales').classList.add('active-slide');
+        }
+    </script>
+</body>
+</html>
