@@ -3,106 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniStream | AI YouTube Automation</title>
+    <title>TUBEFLOW AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background: #050505; color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-        .slide-section { height: 100vh; width: 100vw; transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1); position: absolute; }
-        .hidden-slide { transform: translateY(100%); }
-        .active-slide { transform: translateY(0); }
-        .gradient-text { background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .three-d-orb { 
-            width: 400px; height: 400px; background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, rgba(0,0,0,0) 70%); 
-            border-radius: 50%; filter: blur(40px); animation: float 6s infinite ease-in-out;
+        /* FORCING BLACK BACKGROUND TO FIX THE WHITE SCREEN */
+        html, body {
+            background-color: #050505 !important;
+            color: #ffffff !important;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
         }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(20px, -30px) scale(1.1); } }
+
+        .main-container {
+            height: 100vh;
+            width: 100vw;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 3D Floating Orb */
+        .orb {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.3;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Section 1: Surface Page -->
-    <section id="surface" class="slide-section active-slide flex flex-col items-center justify-center text-center p-6">
-        <div class="three-d-orb absolute z-0"></div>
-        <div class="relative z-10 w-full max-w-3xl">
-            <h1 class="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">WHAT CAN I DO FOR YOU?</h1>
-            <div class="relative">
-                <input type="text" id="userPrompt" placeholder="Describe your video (e.g. 'Space Documentary' or 'Gaming Shorts')..." 
-                       class="w-full bg-white/5 border border-white/20 rounded-full py-5 px-10 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 backdrop-blur-md transition-all shadow-2xl">
-                <button onclick="goToDemo()" class="absolute right-4 top-3 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-full font-bold transition-all">Generate</button>
-            </div>
-            <div class="mt-6 flex gap-4 justify-center text-sm text-gray-400">
-                <span class="hover:text-blue-400 cursor-pointer">#TrueCrime</span>
-                <span class="hover:text-blue-400 cursor-pointer">#Top10List</span>
-                <span class="hover:text-blue-400 cursor-pointer">#FinanceAI</span>
-            </div>
-        </div>
-    </section>
+    <div class="orb"></div>
 
-    <!-- Section 2: Demo Page -->
-    <section id="demo" class="slide-section hidden-slide flex flex-col items-center justify-center bg-zinc-900 p-6">
-        <div class="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
-            <div class="text-left">
-                <h2 class="text-3xl font-bold mb-4">Your AI Preview is Ready</h2>
-                <p class="text-gray-400 mb-6">We've applied our <span class="text-blue-400">Cinematic Template</span> based on your prompt. Speed up your workflow with one-click edits.</p>
-                <div class="space-y-4">
-                    <div class="bg-black/40 p-4 rounded-lg border border-white/10">
-                        <p class="text-xs text-blue-400 uppercase font-bold">Script Outline</p>
-                        <p class="text-sm italic">"In the depths of the ocean, secrets await..."</p>
-                    </div>
-                    <button onclick="goToSales()" class="w-full py-4 bg-white text-black font-black rounded-lg hover:bg-gray-200 transition-all">GET FULL VIDEO WITHOUT WATERMARK</button>
+    <div id="wrapper" class="main-container">
+        
+        <!-- PAGE 1: SURFACE -->
+        <section>
+            <h1 class="text-5xl font-black mb-4 tracking-tighter">TUBEFLOW</h1>
+            <p class="text-blue-400 font-bold mb-10 uppercase tracking-widest text-sm">WHAT CAN I DO FOR YOU?</p>
+            
+            <div class="glass-box">
+                <input type="text" id="prompt" placeholder="Describe your video niche..." 
+                    class="w-full bg-black/50 border border-white/20 p-4 rounded-xl text-white focus:ring-2 focus:ring-blue-500 outline-none mb-4">
+                <button onclick="move(1)" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-black transition-all">GENERATE DEMO</button>
+            </div>
+        </section>
+
+        <!-- PAGE 2: DEMO -->
+        <section class="bg-zinc-900">
+            <h2 class="text-3xl font-bold mb-6">AI MODEL PREVIEW</h2>
+            <div class="glass-box aspect-video flex items-center justify-center border-2 border-dashed border-blue-500/50 mb-6">
+                <p class="text-blue-400 animate-pulse">GENERATING 3D ASSETS...</p>
+            </div>
+            <button onclick="move(2)" class="px-10 py-4 bg-white text-black font-bold rounded-full">UPGRADE TO EXPORT</button>
+        </section>
+
+        <!-- PAGE 3: SALES -->
+        <section>
+            <h2 class="text-4xl font-black mb-10 text-blue-500">PRICING COMPARISON</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/10 text-left opacity-50">
+                    <p class="text-xs uppercase">Market Price</p>
+                    <p class="text-3xl font-bold line-through">$250/video</p>
+                </div>
+                <div class="p-6 bg-blue-600 rounded-2xl text-left shadow-2xl">
+                    <p class="text-xs uppercase">TubeFlow Price</p>
+                    <p class="text-4xl font-black">$19/month</p>
+                    <button class="mt-4 w-full bg-black text-white py-2 rounded-lg">JOIN NOW</button>
                 </div>
             </div>
-            <div class="relative aspect-video bg-black rounded-2xl border-4 border-white/5 shadow-2xl overflow-hidden flex items-center justify-center">
-                <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent"></div>
-                <i class="fa-solid fa-play text-6xl opacity-50"></i>
-                <div class="absolute bottom-4 left-4 bg-black/60 px-3 py-1 rounded text-xs">DEMO PREVIEW MODEL v3.1</div>
-            </div>
-        </div>
-    </section>
+            <button onclick="move(0)" class="mt-10 text-gray-500 text-xs underline">RESTART PROCESS</button>
+        </section>
 
-    <!-- Section 3: Sales & Comparison -->
-    <section id="sales" class="slide-section hidden-slide flex flex-col items-center justify-center bg-black p-6">
-        <h2 class="text-4xl font-bold mb-12">Fair Market Pricing</h2>
-        <div class="max-w-5xl w-full grid md:grid-cols-2 gap-8">
-            <!-- Market Price -->
-            <div class="p-8 border border-white/10 rounded-3xl bg-zinc-950 opacity-60 scale-95 transition-all">
-                <h3 class="text-xl font-bold mb-4">Traditional Outsourcing</h3>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li class="flex justify-between"><span>Scriptwriter</span> <span>$50</span></li>
-                    <li class="flex justify-between"><span>Voice Actor</span> <span>$40</span></li>
-                    <li class="flex justify-between"><span>Video Editor</span> <span>$120</span></li>
-                </ul>
-                <div class="text-3xl font-bold text-red-500 underline underline-offset-8">$210 / Video</div>
-            </div>
-            <!-- Our Price -->
-            <div class="p-8 border-2 border-blue-500 rounded-3xl bg-blue-950/20 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
-                <div class="bg-blue-600 text-white text-xs inline-block px-3 py-1 rounded-full mb-4 font-bold">FASTER WORKFLOW</div>
-                <h3 class="text-xl font-bold mb-4 text-blue-400">OmniStream AI</h3>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> All-in-One Automation</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Premium Niche Templates</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> 10min Generation Time</li>
-                </ul>
-                <div class="text-5xl font-bold mb-6">$1.99 <span class="text-sm text-gray-400">/ video</span></div>
-                <button class="w-full py-4 bg-blue-500 text-white font-black rounded-xl hover:bg-blue-400 shadow-lg">START GENERATING NOW</button>
-            </div>
-        </div>
-        <button onclick="location.reload()" class="mt-12 text-gray-500 hover:text-white transition-all">← Back to Start</button>
-    </section>
+    </div>
 
     <script>
-        function goToDemo() {
-            document.getElementById('surface').classList.add('hidden-slide');
-            document.getElementById('surface').classList.remove('active-slide');
-            document.getElementById('demo').classList.remove('hidden-slide');
-            document.getElementById('demo').classList.add('active-slide');
-        }
-
-        function goToSales() {
-            document.getElementById('demo').style.transform = 'translateY(-100%)';
-            document.getElementById('sales').classList.remove('hidden-slide');
-            document.getElementById('sales').classList.add('active-slide');
+        function move(index) {
+            const wrapper = document.getElementById('wrapper');
+            wrapper.style.transform = `translateY(-${index * 100}vh)`;
         }
     </script>
 </body>
